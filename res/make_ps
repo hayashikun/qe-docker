@@ -1,0 +1,110 @@
+#!/bin/bash
+#!
+#! Copyright (C) 2010-2013 Andrea Dal Corso 
+#! This file is distributed under the terms of the
+#! GNU General Public License. See the file `License'
+#! in the root directory of the present distribution,
+#! or http://www.gnu.org/copyleft/gpl.txt .
+#!
+
+. ../QE_path
+element="C N O Al Si P S Ti Cr Fe Co Ni Ci Zn Ga Ge As Se Ag In Sn Au"
+
+# do not change after this line. Uncomment the appropriate line if
+# you want to test the additional PPs or to use a version of 
+# QE < 5.0 (at your own risk).
+
+work=./WORK
+#  For QE < 5.0 
+#. $PWDIR/example/environment_variables
+#
+. $PWDIR/environment_variables
+BIN_DIR=$PWDIR/bin
+
+mkdir $work >& /dev/null
+mkdir PSEUDOPOTENTIALS >& /dev/null
+
+#
+#   These two files generate PAW and US PPs for all elements. These are
+#   high accuracy - high kinetic energy cut-off PPs.
+#
+. ../paw_ps_high.job
+. ../us_ps_high.job
+#
+#   These two files generate additional PAW and US PPs for some elements. 
+#   These are less accurate PP than the previous one but require
+#   lower kinetic energy cut-off or have less projectors or less semicore
+#   states.
+#
+. ../paw_ps_low.job
+. ../us_ps_low.job
+
+#  Uncomment the following line to generate the old pslibrary 0.3.1 PPs. 
+#
+#. ../paw_ps_collection.job
+#. ../us_ps_collection.job
+
+#  Uncomment the following line to generate the NC-PPs. Be very careful
+#  these PPs are completely untested.
+#
+#. ../nc_ps_collection.job
+
+#  Uncomment the following line to generate additional PAW data sets. Be
+#  careful these PPs might have problems.
+#
+#. ../paw_ps_collection_tot.job
+
+#  Uncomment the following line to generate additional PAW data sets. 
+#  These are alternative data sets. 
+#
+#. ../paw_ps_collection_alt.job
+
+#  Old PP files for Lanthanides. 
+#  Require an atomic code with svn version older than 10324.
+#  This file is obsolete. The PPs have been moved to paw_ps_low and corrected.
+#
+#. ../paw_lan_collection.job
+
+#  Uncomment the following line to generate additional US-PPs. Be
+#  careful these PPs might have problems.
+#
+#. ../us_ps_collection_tot.job
+
+#  Uncomment the following line to generate additional US-PPs. 
+#  These are alternative PPs
+#
+#. ../us_ps_collection_alt.job
+
+#  Old PP files for Lanthanides.  
+#  Require an atomic code with svn version older than 10324.
+#  This file is obsolete. The PPs have been moved to us_ps_low and corrected.
+#
+#. ../us_lan_collection.job
+
+ld1_command="$PARA_PREFIX $BIN_DIR/ld1.x $PARA_POSTFIX"
+
+echo "ld1_command =" $ld1_command
+
+for elem in $element ; do
+    if [ $elem = "all" ] ;
+    then
+
+       for atom in *.in ; do
+          echo -e "Making   $atom  ...\c"
+          $ld1_command < ./$atom > $work/$atom.out
+          echo '  Done' 
+       done
+
+    else
+
+       for atom in "$elem."*.in ; do
+           echo -e "Making   $atom  ...\c"
+           $ld1_command < ./$atom > $work/$atom.out
+           echo '  Done' 
+       done
+
+    fi
+done
+
+\mv *.UPF PSEUDOPOTENTIALS
+\mv *.in WORK

@@ -1,0 +1,8 @@
+*.out
+*.rap
+.ipynb_checkpoints
+work/
+
+res/pslibrary.1.0.0.tar.gz
+res/qe-6.5-ReleasePack.tgz
+res/sg15_oncv_upf_2020-02-06.tar.gz
