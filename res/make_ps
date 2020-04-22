@@ -8,7 +8,7 @@
 #!
 
 . ../QE_path
-element="C N O Al Si P S Ti Cr Fe Co Ni Ci Zn Ga Ge As Se Ag In Sn Au"
+element="C N O Al Si P S Ti Cr Fe Co Ni Cu Zn Ga Ge As Se Ag In Sn Au"
 
 # do not change after this line. Uncomment the appropriate line if
 # you want to test the additional PPs or to use a version of 
