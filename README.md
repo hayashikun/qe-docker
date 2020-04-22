@@ -1,12 +1,20 @@
 # quantum-ESPRESSO
 
-## Docker
+## Docker image
+
+### Pull
 ```sh
-# build
+$ docker pull haya4kun/quantum_espresso
+```
+
+### Build
+```sh
 $ docker image build -f Dockerfile .
-# run
+```
+
+### Run & attach
+```sh
 $ docker run -itd <IMAGE ID> -v (pwd):/root/qe-docker
-# attach
 $ docker attach <CONTAINER ID>
 ```
 

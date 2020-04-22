@@ -2,28 +2,28 @@ FROM ubuntu:latest
 
 RUN apt-get update
 RUN apt-get install -y \
-                        git \
-                        vim \
-                        curl \
-                        build-essential \
-                        gcc \
-                        gfortran \
-                        gnuplot \
-                        openmpi-doc \
-                        openmpi-bin \
-                        libopenmpi-dev \
-                        openssl \
-                        libssl-dev \
-                        libreadline-dev \
-                        ncurses-dev \
-                        bzip2 \
-                        zlib1g-dev \
-                        libbz2-dev \
-                        libffi-dev \
-                        libopenblas-dev \
-                        liblapack-dev \
-                        libpng-dev \
-                        libfreetype6-dev
+    git \
+    vim \
+    curl \
+    build-essential \
+    gcc \
+    gfortran \
+    gnuplot \
+    openmpi-doc \
+    openmpi-bin \
+    libopenmpi-dev \
+    openssl \
+    libssl-dev \
+    libreadline-dev \
+    ncurses-dev \
+    bzip2 \
+    zlib1g-dev \
+    libbz2-dev \
+    libffi-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    libpng-dev \
+    libfreetype6-dev
 
 WORKDIR /usr/local/src
 
@@ -61,14 +61,16 @@ RUN mkdir sg15_oncv_upf \
     && rm -rf sg15_oncv_upf_2020-02-06.tar.gz
 
 ## Python installation
-RUN curl https://pyenv.run | bash
-ENV PYENV_ROOT /root/.pyenv
-ENV PATH $PYENV_ROOT/bin:$PATH
-RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-RUN pyenv install 3.8.0
-RUN pyenv global 3.8.0
-RUN eval "$(pyenv init -)" \
-    && pip install pip -U \
+RUN curl https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz -O -L \
+    && tar zxf Python-3.8.0.tgz \
+    && cd Python-3.8.0 \
+    && ./configure \
+    && make \
+    && make altinstall \
+    && ln -s /usr/local/bin/python3.8 /usr/bin/python \
+    && ln -s /usr/local/bin/pip3.8 /usr/bin/pip
+ENV PYTHONIOENCODING "utf-8"
+RUN pip install pip -U \
     && pip install \
         numpy \
         scipy \
@@ -79,6 +81,3 @@ RUN eval "$(pyenv init -)" \
         Pillow \
         ase \
         jupyter
-
-COPY res/entrypoint.sh .
-ENTRYPOINT ["./entrypoint.sh"]
