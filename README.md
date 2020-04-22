@@ -11,8 +11,8 @@ $ docker attach <CONTAINER ID>
 ```
 
 ## Pseudo-potential
-- [pslibrary](!https://dalcorso.github.io/pslibrary/)
-- [sg15_oncv_upf](!http://www.quantum-simulation.org/potentials/sg15_oncv/)
+- [pslibrary](https://dalcorso.github.io/pslibrary/)
+- [sg15_oncv_upf](http://www.quantum-simulation.org/potentials/sg15_oncv/)
 
 For `pslibrary`, pseudo potentials of `C N O Al Si P S Ti Cr Fe Co Ni Cu Zn Ga Ge As Se Ag In Sn Au` are made.
 If you need another element's pseudo-potential, please add the element to `element` in `res/meka_ps` file.
