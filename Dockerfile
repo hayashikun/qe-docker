@@ -64,11 +64,11 @@ RUN mkdir sg15_oncv_upf \
 RUN curl https://pyenv.run | bash
 ENV PYENV_ROOT /root/.pyenv
 ENV PATH $PYENV_ROOT/bin:$PATH
-RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc \
-    && eval "$(pyenv init -)"
+RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 RUN pyenv install 3.8.0
 RUN pyenv global 3.8.0
 RUN eval "$(pyenv init -)" \
+    && pip install pip -U \
     && pip install \
         numpy \
         scipy \
@@ -78,4 +78,7 @@ RUN eval "$(pyenv init -)" \
         tqdm \
         Pillow \
         ase \
-        jupyter \
+        jupyter
+
+COPY res/entrypoint.sh .
+ENTRYPOINT ["./entrypoint.sh"]

@@ -19,6 +19,16 @@ If you need another element's pseudo-potential, please add the element to `eleme
 All pseudo-potential will be made when `element=all` is specified.
 
 
+## Python
+Python 3.8.0 is installed.
+`numpy`, `scipy`, `matplotlib`, `sympy`, `pandas`, `tqdm`, `Pillow`, `ase` and `jupyter` are installed.
+
+```sh
+$ docker run --rm <IMAGE ID> python -V
+Python 3.8.0
+```
+
+        
 ## Example
 ### Graphene band
 
