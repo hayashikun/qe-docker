@@ -30,7 +30,7 @@ Folowing packages
 - `pandas`
 - `tqdm`
 - `Pillow`
-- `ase`
+- (`ase`)[https://wiki.fysik.dtu.dk/ase/]
 - `jupyter`
 are installed.
 
