@@ -9,7 +9,7 @@ $ docker pull haya4kun/quantum_espresso
 
 ### Build
 ```sh
-$ docker image build -f Dockerfile .
+$ docker build -f Dockerfile .
 ```
 
 ### Run & attach

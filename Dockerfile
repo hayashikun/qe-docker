@@ -62,6 +62,7 @@ RUN mkdir sg15_oncv_upf \
 ## Python installation
 RUN curl https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz -O -L \
     && tar zxf Python-3.8.0.tgz \
+    && rm -rf Python-3.8.0.tgz \
     && cd Python-3.8.0 \
     && ./configure \
     && make \
