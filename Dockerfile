@@ -1,30 +1,30 @@
 FROM ubuntu:latest
 
-RUN apt-get update
-RUN apt-get install -y \
-    git \
-    vim \
-    curl \
-    build-essential \
-    gcc \
-    gfortran \
-    gnuplot \
-    openmpi-doc \
-    openmpi-bin \
-    libopenmpi-dev \
-    openssl \
-    libssl-dev \
-    libreadline-dev \
-    ncurses-dev \
-    bzip2 \
-    zlib1g-dev \
-    libbz2-dev \
-    libffi-dev \
-    libopenblas-dev \
-    liblapack-dev \
-    libsqlite3-dev \
-    libpng-dev \
-    libfreetype6-dev
+RUN apt-get update \
+    && apt-get install -y \
+        git \
+        vim \
+        curl \
+        build-essential \
+        gcc \
+        gfortran \
+        gnuplot \
+        openmpi-doc \
+        openmpi-bin \
+        libopenmpi-dev \
+        openssl \
+        libssl-dev \
+        libreadline-dev \
+        ncurses-dev \
+        bzip2 \
+        zlib1g-dev \
+        libbz2-dev \
+        libffi-dev \
+        libopenblas-dev \
+        liblapack-dev \
+        libsqlite3-dev \
+        libpng-dev \
+        libfreetype6-dev
 
 WORKDIR /usr/local/src
 
