@@ -29,6 +29,8 @@ RUN apt-get update \
 
 WORKDIR /usr/local/src
 
+ENV OMPI_MCA_btl_vader_single_copy_mechanism "none"
+
 ## Quantum espresso installation
 RUN curl https://github.com/QEF/q-e/releases/download/qe-6.5/qe-6.5-ReleasePack.tgz -O -L
 RUN tar xvf qe-6.5-ReleasePack.tgz \
