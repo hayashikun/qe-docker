@@ -23,6 +23,7 @@ RUN apt-get update \
         libopenblas-dev \
         liblapack-dev \
         libsqlite3-dev \
+        liblzma-dev \
         libpng-dev \
         libfreetype6-dev
 
