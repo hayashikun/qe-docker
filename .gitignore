@@ -1,6 +1,8 @@
 *.out
 *.rap
 .ipynb_checkpoints
+.idea/
+
 work/
 
 res/pslibrary.1.0.0.tar.gz
