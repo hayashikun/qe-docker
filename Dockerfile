@@ -86,4 +86,3 @@ RUN jupyter notebook --generate-config \
     && echo "c.NotebookApp.ip = '0.0.0.0'" >> /root/.jupyter/jupyter_notebook_config.py \
     && echo "c.NotebookApp.port = 8889" >> /root/.jupyter/jupyter_notebook_config.py \
     && echo "c.NotebookApp.allow_root = True" >> /root/.jupyter/jupyter_notebook_config.py
-EXPOSE 8889

@@ -57,10 +57,12 @@ Folowing packages are installed.
 You can run jupyter nootebook or lab.
 ```sh
 # jupyter notebook
-$ docker run --rm -it -v $(pwd):/root/qe-docker <IMAGE ID> jupyter notebook
+$ docker run --rm -it -v $(pwd):/root/qe-docker -p 8889:8889 <IMAGE ID> jupyter notebook
 # jupyter lab
-$ docker run --rm -it -v $(pwd):/root/qe-docker <IMAGE ID> jupyter lab
+$ docker run --rm -it -v $(pwd):/root/qe-docker -p 8889:8889 <IMAGE ID> jupyter lab
 ```
+
+By entering `http://127.0.0.1:8889/?token=TOKEN`, which is also shown in terminal, into browser, you can use jupyter notebook/lab.
 
 ## Example
 ### Graphene band
