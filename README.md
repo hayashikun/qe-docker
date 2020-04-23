@@ -14,7 +14,7 @@ $ docker image build -f Dockerfile .
 
 ### Run & attach
 ```sh
-$ docker run -itd <IMAGE ID> -v (pwd):/root/qe-docker
+$ docker run -itd -v $(pwd):/root/qe-docker <IMAGE ID>
 $ docker attach <CONTAINER ID>
 ```
 
@@ -30,7 +30,17 @@ All pseudo-potential will be made when `element=all` is specified.
 ## Python
 Python 3.8.0 is installed.
 
-Folowing packages
+```sh
+$ docker run --rm <IMAGE ID> python -V
+Python 3.8.0
+$ docker run -it --rm qe python
+Python 3.8.0 (default, Apr 23 2020, 04:34:11) 
+[GCC 7.5.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+```
+
+Folowing packages are installed.
 - `numpy`
 - `scipy`
 - `matplotlib`
@@ -40,13 +50,17 @@ Folowing packages
 - `Pillow`
 - [`ase`](https://wiki.fysik.dtu.dk/ase/)
 - `jupyter`
-are installed.
+- `jupyterlab`
+- `joblib`
+- `Cython`
 
+You can run jupyter nootebook or lab.
 ```sh
-$ docker run --rm <IMAGE ID> python -V
-Python 3.8.0
+# jupyter notebook
+$ docker run --rm -it -v $(pwd):/root/qe-docker <IMAGE ID> jupyter notebook
+# jupyter lab
+$ docker run --rm -it -v $(pwd):/root/qe-docker <IMAGE ID> jupyter lab
 ```
-
 
 ## Example
 ### Graphene band

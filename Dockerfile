@@ -22,6 +22,7 @@ RUN apt-get install -y \
     libffi-dev \
     libopenblas-dev \
     liblapack-dev \
+    libsqlite3-dev \
     libpng-dev \
     libfreetype6-dev
 
@@ -29,7 +30,6 @@ WORKDIR /usr/local/src
 
 ## Quantum espresso installation
 RUN curl https://github.com/QEF/q-e/releases/download/qe-6.5/qe-6.5-ReleasePack.tgz -O -L
-# COPY res/qe-6.5-ReleasePack.tgz .
 RUN tar xvf qe-6.5-ReleasePack.tgz \
     && rm -rf qe-6.5-ReleasePack.tgz
 RUN cd qe-6.5 \
@@ -46,7 +46,6 @@ WORKDIR /root
 
 ## Pseudo-potential preparation
 RUN curl https://people.sissa.it/dalcorso/pslibrary/pslibrary.1.0.0.tar.gz -O -L
-# COPY res/pslibrary.1.0.0.tar.gz .
 RUN tar xvf pslibrary.1.0.0.tar.gz \
     && rm -rf pslibrary.1.0.0.tar.gz
 COPY res/make_ps ./pslibrary.1.0.0
@@ -55,7 +54,6 @@ RUN cd pslibrary.1.0.0 \
     && ./make_all_ps
 
 RUN curl http://www.quantum-simulation.org/potentials/sg15_oncv/sg15_oncv_upf_2020-02-06.tar.gz -O -L
-# COPY res/sg15_oncv_upf_2020-02-06.tar.gz .
 RUN mkdir sg15_oncv_upf \
     && tar xvf sg15_oncv_upf_2020-02-06.tar.gz -C sg15_oncv_upf \
     && rm -rf sg15_oncv_upf_2020-02-06.tar.gz
@@ -80,4 +78,12 @@ RUN pip install pip -U \
         tqdm \
         Pillow \
         ase \
-        jupyter
+        jupyter \
+        jupyterlab \
+        joblib \
+        Cython
+RUN jupyter notebook --generate-config \
+    && echo "c.NotebookApp.ip = '0.0.0.0'" >> /root/.jupyter/jupyter_notebook_config.py \
+    && echo "c.NotebookApp.port = 8889" >> /root/.jupyter/jupyter_notebook_config.py \
+    && echo "c.NotebookApp.allow_root = True" >> /root/.jupyter/jupyter_notebook_config.py
+EXPOSE 8889
