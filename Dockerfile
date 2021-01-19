@@ -1,5 +1,6 @@
 FROM ubuntu:latest
 
+ENV DEBIAN_FRONTEND "noninteractive"
 RUN apt-get update \
     && apt-get install -y \
         git \
@@ -32,18 +33,14 @@ WORKDIR /usr/local/src
 ENV OMPI_MCA_btl_vader_single_copy_mechanism "none"
 
 ## Quantum espresso installation
-RUN curl https://github.com/QEF/q-e/releases/download/qe-6.5/qe-6.5-ReleasePack.tgz -O -L
-RUN tar xvf qe-6.5-ReleasePack.tgz \
-    && rm -rf qe-6.5-ReleasePack.tgz
-RUN cd qe-6.5 \
+RUN curl https://github.com/QEF/q-e/releases/download/qe-6.6/qe-6.6-ReleasePack.tgz -O -L
+RUN tar xvf qe-6.6-ReleasePack.tgz \
+    && rm -rf qe-6.6-ReleasePack.tgz
+RUN cd qe-6.6 \
     && ./configure \
-    && make pw \
-    && make pp \
-    && make ph \
-    && make ld1 \
-    && make upf \
+    && make all \
     && make install
-COPY res/environment_variables ./qe-6.5
+COPY res/environment_variables ./qe-6.6
 
 WORKDIR /root
 
@@ -53,7 +50,7 @@ RUN tar xvf pslibrary.1.0.0.tar.gz \
     && rm -rf pslibrary.1.0.0.tar.gz
 COPY res/make_ps ./pslibrary.1.0.0
 RUN cd pslibrary.1.0.0 \
-    && sed -i -e "s#/path_to_quantum_espresso/#/usr/local/src/qe-6.5#g" ./QE_path \
+    && sed -i -e "s#/path_to_quantum_espresso/#/usr/local/src/qe-6.6#g" ./QE_path \
     && ./make_all_ps
 
 RUN curl http://www.quantum-simulation.org/potentials/sg15_oncv/sg15_oncv_upf_2020-02-06.tar.gz -O -L
@@ -82,11 +79,6 @@ RUN pip install pip -U \
         tqdm \
         Pillow \
         ase \
-        jupyter \
-        jupyterlab \
         joblib \
-        Cython
-RUN jupyter notebook --generate-config \
-    && echo "c.NotebookApp.ip = '0.0.0.0'" >> /root/.jupyter/jupyter_notebook_config.py \
-    && echo "c.NotebookApp.port = 8889" >> /root/.jupyter/jupyter_notebook_config.py \
-    && echo "c.NotebookApp.allow_root = True" >> /root/.jupyter/jupyter_notebook_config.py
+        Cython \
+        fire
