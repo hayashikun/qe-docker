@@ -49,6 +49,7 @@ RUN curl https://people.sissa.it/dalcorso/pslibrary/pslibrary.1.0.0.tar.gz -O -L
 RUN tar xvf pslibrary.1.0.0.tar.gz \
     && rm -rf pslibrary.1.0.0.tar.gz
 COPY res/make_ps ./pslibrary.1.0.0
+COPY res/make_all_ps ./pslibrary.1.0.0
 RUN cd pslibrary.1.0.0 \
     && sed -i -e "s#/path_to_quantum_espresso/#/usr/local/src/qe-6.6#g" ./QE_path \
     && ./make_all_ps

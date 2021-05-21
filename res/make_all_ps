@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Copyright (C) 2010-2013 Andrea Dal Corso 
+# This file is distributed under the terms of the
+# GNU General Public License. See the file `License'
+# in the root directory of the present distribution,
+# or http://www.gnu.org/copyleft/gpl.txt .
+#
+#
+#   This file produces PPs only for the pz, pbe, rel-pz and rel-pbe functionals.
+#   If you are interested in some other functional enter in the directory
+#   with the functional name and type ../make_ps
+#
+
+cd ./pz
+. ../make_ps
+cd ..
+cd ./pbe
+. ../make_ps
+cd ..
+cd ./rel-pz
+. ../make_ps
+cd ..
+cd ./rel-pbe
+. ../make_ps
+cd ..
+
+cd ./pbesol
+. ../make_ps
+cd ..
+
+cd ./rel-pbesol
+. ../make_ps
+cd ..
