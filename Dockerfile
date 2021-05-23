@@ -33,14 +33,14 @@ WORKDIR /usr/local/src
 ENV OMPI_MCA_btl_vader_single_copy_mechanism "none"
 
 ## Quantum espresso installation
-RUN curl https://github.com/QEF/q-e/releases/download/qe-6.6/qe-6.6-ReleasePack.tgz -O -L
-RUN tar xvf qe-6.6-ReleasePack.tgz \
-    && rm -rf qe-6.6-ReleasePack.tgz
-RUN cd qe-6.6 \
+RUN curl https://github.com/QEF/q-e/releases/download/qe-6.7.0/qe-6.7-ReleasePack.tgz -O -L
+RUN tar xvf qe-6.7-ReleasePack.tgz \
+    && rm -rf qe-6.7-ReleasePack.tgz
+RUN cd qe-6.7 \
     && ./configure \
     && make all \
     && make install
-COPY res/environment_variables ./qe-6.6
+COPY res/environment_variables ./qe-6.7
 
 WORKDIR /root
 
