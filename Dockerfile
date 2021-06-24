@@ -51,7 +51,7 @@ RUN tar xvf pslibrary.1.0.0.tar.gz \
 COPY res/make_ps ./pslibrary.1.0.0
 COPY res/make_all_ps ./pslibrary.1.0.0
 RUN cd pslibrary.1.0.0 \
-    && sed -i -e "s#/path_to_quantum_espresso/#/usr/local/src/qe-6.6#g" ./QE_path \
+    && sed -i -e "s#/path_to_quantum_espresso/#/usr/local/src/qe-6.7#g" ./QE_path \
     && ./make_all_ps
 
 RUN curl http://www.quantum-simulation.org/potentials/sg15_oncv/sg15_oncv_upf_2020-02-06.tar.gz -O -L
