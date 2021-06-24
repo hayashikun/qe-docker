@@ -28,9 +28,36 @@ RUN apt-get update \
         libpng-dev \
         libfreetype6-dev
 
+ENV OMPI_MCA_btl_vader_single_copy_mechanism "none"
+ENV OMPI_ALLOW_RUN_AS_ROOT 1
+ENV OMPI_ALLOW_RUN_AS_ROOT_CONFIRM 1
+
 WORKDIR /usr/local/src
 
-ENV OMPI_MCA_btl_vader_single_copy_mechanism "none"
+## Python installation
+RUN curl https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz -O -L \
+    && tar zxf Python-3.9.4.tgz \
+    && rm -rf Python-3.9.4.tgz \
+    && cd Python-3.9.4 \
+    && ./configure \
+    && make \
+    && make altinstall \
+    && ln -s /usr/local/bin/python3.9 /usr/local/bin/python \
+    && ln -s /usr/local/bin/pip3.9 /usr/local/bin/pip
+ENV PYTHONIOENCODING "utf-8"
+RUN pip install pip -U \
+    && pip install \
+        numpy \
+        scipy \
+        matplotlib \
+        sympy \
+        pandas \
+        tqdm \
+        Pillow \
+        ase \
+        joblib \
+        Cython \
+        fire
 
 ## Quantum espresso installation
 RUN curl https://github.com/QEF/q-e/releases/download/qe-6.7.0/qe-6.7-ReleasePack.tgz -O -L
@@ -41,6 +68,7 @@ RUN cd qe-6.7 \
     && make all \
     && make install
 COPY res/environment_variables ./qe-6.7
+
 
 WORKDIR /root
 
@@ -59,27 +87,3 @@ RUN mkdir sg15_oncv_upf \
     && tar xvf sg15_oncv_upf_2020-02-06.tar.gz -C sg15_oncv_upf \
     && rm -rf sg15_oncv_upf_2020-02-06.tar.gz
 
-## Python installation
-RUN curl https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz -O -L \
-    && tar zxf Python-3.8.0.tgz \
-    && rm -rf Python-3.8.0.tgz \
-    && cd Python-3.8.0 \
-    && ./configure \
-    && make \
-    && make altinstall \
-    && ln -s /usr/local/bin/python3.8 /usr/bin/python \
-    && ln -s /usr/local/bin/pip3.8 /usr/bin/pip
-ENV PYTHONIOENCODING "utf-8"
-RUN pip install pip -U \
-    && pip install \
-        numpy \
-        scipy \
-        matplotlib \
-        sympy \
-        pandas \
-        tqdm \
-        Pillow \
-        ase \
-        joblib \
-        Cython \
-        fire
