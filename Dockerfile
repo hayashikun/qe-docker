@@ -73,14 +73,9 @@ COPY res/environment_variables ./qe-6.7
 WORKDIR /root
 
 ## Pseudo-potential preparation
-RUN curl https://people.sissa.it/dalcorso/pslibrary/pslibrary.1.0.0.tar.gz -O -L
-RUN tar xvf pslibrary.1.0.0.tar.gz \
-    && rm -rf pslibrary.1.0.0.tar.gz
-COPY res/make_ps ./pslibrary.1.0.0
-COPY res/make_all_ps ./pslibrary.1.0.0
-RUN cd pslibrary.1.0.0 \
-    && sed -i -e "s#/path_to_quantum_espresso/#/usr/local/src/qe-6.7#g" ./QE_path \
-    && ./make_all_ps
+COPY res/pslibrary.1.0.0.tar.bz2 ./
+RUN tar jxvf pslibrary.1.0.0.tar.bz2 \
+    && rm -rf pslibrary.1.0.0.tar.bz2
 
 RUN curl http://www.quantum-simulation.org/potentials/sg15_oncv/sg15_oncv_upf_2020-02-06.tar.gz -O -L
 RUN mkdir sg15_oncv_upf \
