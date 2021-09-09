@@ -60,14 +60,14 @@ RUN pip install pip -U \
         fire
 
 ## Quantum espresso installation
-RUN curl https://github.com/QEF/q-e/releases/download/qe-6.7.0/qe-6.7-ReleasePack.tgz -O -L
-RUN tar xvf qe-6.7-ReleasePack.tgz \
-    && rm -rf qe-6.7-ReleasePack.tgz
-RUN cd qe-6.7 \
+RUN curl https://github.com/QEF/q-e/releases/download/qe-6.8/qe-6.8-ReleasePack.tgz -O -L
+RUN tar xvf qe-6.8-ReleasePack.tgz \
+    && rm -rf qe-6.8-ReleasePack.tgz
+RUN cd qe-6.8 \
     && ./configure \
     && make all \
     && make install
-COPY res/environment_variables ./qe-6.7
+COPY res/environment_variables ./qe-6.8
 
 
 WORKDIR /root
